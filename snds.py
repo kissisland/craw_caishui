@@ -19,15 +19,16 @@ def get_detail(url):
     try:
         res = requests.get(url, headers= headers)
         if res.status_code == 200:
-            soup = html.fromstring(res.text)
+            con = res.text
+            soup = html.fromstring(con)
             title = soup.xpath("//th[@scope='col']/text()")
             if title: title= title[0].strip()
 
             desc = soup.xpath("//td[@class='detail-ask-snds-04-wnfw-01']/text()")
             if desc: desc= desc[0].strip()
 
-            # push_time = soup.xpath("//td[@class='detail-time-snds-04-wnfw-01']/table/tbody/tr/td[1]/text()")
-            # if push_time: push_time= push_time[0]
+            push_time = re.search(r'>提问时间：(.*?)<', con, flags=re.S)
+            if push_time: push_time= push_time.group(1)
 
             content = soup.xpath("//td[@class='detail-answer-snds-04-wnfw-01']")
             if content: content= content[0].xpath("string(.)")
@@ -35,11 +36,11 @@ def get_detail(url):
             data_info.append({
                 'title': title,
                 'desc': desc,
-                # 'push_time': push_time.strip(),
+                'push_time': push_time,
                 'content': content,
                 'url':url
             })
-            print(title,desc,content)
+            print(title,push_time,desc,content)
     except:
         get_detail(url)
         time.sleep(30)
