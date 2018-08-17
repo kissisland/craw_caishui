@@ -48,11 +48,8 @@ def get_detail(url):
             else:
                 answer_content = "暂无"
             push_time = soup.xpath("/html/body/table/tr[1]/td[1]/table[4]/tr[1]/td[4]/text()")
-            if push_time:
-                push_time = push_time[0].split()[0]
-            else:
-                push_time = "暂无"
-                
+            if push_time: push_time = push_time[0].split()[0]
+
             data_info.append({
                 'title':title,
                 'push_time':push_time,
