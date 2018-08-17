@@ -32,14 +32,21 @@ def get_detail(url):
             con = res.text
             soup = html.fromstring(con)
             title = soup.xpath('//table[@bgcolor="#5871AA"]/tr[2]/td[2]/text()')
-            if title: title = title[0].strip()
+            if title:
+                title = title[0].strip()
+            else:
+                title = "暂无"
             ask_content = soup.xpath('//table[@bgcolor="#5871AA"]/tr[3]/td[2]/table/tr/td/text()')
-            if ask_content: ask_content= ask_content[0].strip()
+            if ask_content:
+                ask_content= ask_content[0].strip()
+            else:
+                ask_content = "暂无"
 
             answer_content = soup.xpath('/html/body/table/tr[1]/td[1]/table[4]/tr[2]/td[2]/table/tr/td')
             if answer_content:
                 answer_content = answer_content[0].xpath("string(.)")
-
+            else:
+                answer_content = "暂无"
             push_time = soup.xpath("/html/body/table/tr[1]/td[1]/table[4]/tr[1]/td[4]/text()")
             if push_time: push_time = push_time[0].split()[0]
 
@@ -53,7 +60,8 @@ def get_detail(url):
 
             print(title, push_time, ask_content, answer_content)
     except:
-        pass
+        get_detail(url)
+        time.sleep(random.randrange(5))
 
 def get_list(num_page):
     try:
