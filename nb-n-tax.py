@@ -56,18 +56,19 @@ def get_detail(url):
 def get_list(page):
     try:
         if page == 0:
-            res = requests.get(start_url1, headers=headers)
+            res = requests.get(start_url1, headers=headers, timeout=5)
         else:
             res = requests.get(start_url2.format(page), headers=headers)
         soup = html.fromstring(res.content)
         for i in soup.xpath("//table[@class='DSjc04']/tr/td[2]/a/@href"):
             get_detail(urljoin(start_url1, i))
             time.sleep(random.randint(3, 7))
-    except:
+    except Exception as e:
+        print(page,"失败重试：{}".format(e))
         get_list(page)
         time.sleep(30)
 
 for i in range(0, 52):
     get_list(i)
-    time.sleep(random.randint(3, 7))
+    # time.sleep(random.randint(3, 7))
 save("nb-n-tax.csv")
