@@ -47,7 +47,7 @@ def get_detail(url):
                 'content': content,
                 'url':url
             })
-            print(title,push_time,desc,content)
+            print(title,push_time,url,desc,content)
     except Exception as e:
         print(e)
         get_detail(url)
