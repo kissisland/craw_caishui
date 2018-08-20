@@ -56,7 +56,7 @@ def get_list(page):
 
         res = requests.post(start_url,data={'page':page}, headers=headers)
         for item in res.json()['result']['data']:
-            print(detail_url.format(item['initbh']))
+            get_detail(detail_url.format(item['initbh']))
             time.sleep(1)
     except:
         get_list(page)
