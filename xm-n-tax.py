@@ -57,7 +57,7 @@ def get_list(page):
         res = requests.post(start_url,data={'page':page}, headers=headers, timeout=5)
         for item in res.json()['result']['data']:
             get_detail(detail_url.format(item['initbh']))
-            time.sleep(1)
+            time.sleep(random.randint(3,10))
     except Exception as e:
         print("出现异常：{}".format(e))
         get_list(page)
@@ -66,5 +66,5 @@ def get_list(page):
 if __name__ == '__main__':
     for p in range(1,1139):
         get_list(p)
-        time.sleep(1)
+        time.sleep(5)
     save("xm-n-tax.csv")
