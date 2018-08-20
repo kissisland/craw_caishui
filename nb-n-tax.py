@@ -63,7 +63,8 @@ def get_list(page):
         for i in soup.xpath("//table[@class='DSjc04']/tr/td[2]/a/@href"):
             get_detail(urljoin(start_url1, i))
             time.sleep(random.randint(3, 7))
-    except:
+    except Exception as e:
+        print(page,"失败重试：{}".format(e))
         get_list(page)
         time.sleep(30)
 
