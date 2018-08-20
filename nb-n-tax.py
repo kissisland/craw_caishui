@@ -29,16 +29,16 @@ def get_detail(url):
             detail_info = soup.xpath("//td//p")
 
 
-            desc = detail_info[0].xpath("string(.)") if detail_info else "暂无"
+            desc = detail_info[0].xpath("string(.)").strip() if detail_info else "暂无"
 
-            content = [conn.xpath("string(.)") for conn in  detail_info[1:]] if detail_info else '暂无'
+            content = [conn.xpath("string(.)").strip() for conn in  detail_info[1:]] if detail_info else '暂无'
             content = ''.join(content)
 
 
             push_time = soup.xpath("//td[@id='tb1']/table[1]/tr/td/text()")
             if push_time:
                 push_time = push_time[0].strip().split("\xa0\xa0\xa0\xa0")
-                push_time = push_time[0].replace("发布时间：", '') if push_time else "暂无"
+                push_time = push_time[0].replace("发布时间：", '').strip() if push_time else "暂无"
 
             data_info.append({
                 'title': title,
