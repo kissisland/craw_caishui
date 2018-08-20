@@ -54,11 +54,12 @@ def get_detail(url):
 def get_list(page):
     try:
 
-        res = requests.post(start_url,data={'page':page}, headers=headers)
+        res = requests.post(start_url,data={'page':page}, headers=headers, timeout=5)
         for item in res.json()['result']['data']:
             get_detail(detail_url.format(item['initbh']))
             time.sleep(1)
-    except:
+    except Exception as e:
+        print("出现异常：{}".format(e))
         get_list(page)
         time.sleep(30)
 
