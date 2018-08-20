@@ -56,7 +56,7 @@ def get_detail(url):
 def get_list(page):
     try:
         if page == 0:
-            res = requests.get(start_url1, headers=headers)
+            res = requests.get(start_url1, headers=headers, timeout=5)
         else:
             res = requests.get(start_url2.format(page), headers=headers)
         soup = html.fromstring(res.content)
@@ -69,5 +69,5 @@ def get_list(page):
 
 for i in range(0, 52):
     get_list(i)
-    time.sleep(random.randint(3, 7))
+    # time.sleep(random.randint(3, 7))
 save("nb-n-tax.csv")
