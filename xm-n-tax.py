@@ -12,7 +12,6 @@ headers = {
     "Accept-Encoding":"gzip, deflate",
     "Accept-Language":"zh-CN,zh;q=0.9,zh-TW;q=0.8,en-US;q=0.7,en;q=0.6",
     "Connection":"keep-alive",
-    "Content-Length":6,
     "Content-Type":"application/x-www-form-urlencoded;utf-8",
     "Cookie":"JSESSIONID=zqlaVf91QS5UN-7bE2jZ8Q789woIdFBYxwVhzH6FwKB0qQ00xmUU!1956117633",
     "Host":"12366ww.xm-n-tax.gov.cn:8091",
