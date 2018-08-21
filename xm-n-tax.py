@@ -60,9 +60,9 @@ def get_detail(url):
             })
             print(title,push_time,url,desc,content)
     except Exception as e:
-        print(e)
+        print(e, url)
         get_detail(url)
-        time.sleep(random.randint(120,600))
+        time.sleep(random.randint(300,600))
 
 def get_list(page):
     try:
