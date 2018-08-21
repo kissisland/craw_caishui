@@ -61,8 +61,9 @@ def get_detail(url):
             print(title,push_time,url,desc,content)
     except Exception as e:
         print(e, url)
+        time.sleep(random.randint(300, 600))
         get_detail(url)
-        time.sleep(random.randint(300,600))
+
 
 def get_list(page):
     try:
@@ -75,8 +76,9 @@ def get_list(page):
             get_list(page)
     except Exception as e:
         print("出现异常：{}".format(e))
-        get_list(page)
         time.sleep(30)
+        get_list(page)
+
 
 if __name__ == '__main__':
     for p in range(1,1139):
