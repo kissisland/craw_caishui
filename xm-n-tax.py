@@ -5,6 +5,7 @@ from lxml import html
 start_url = "http://12366ww.xm-n-tax.gov.cn:8091/xmgsww/WslyBLH_findPageZx.do?r=0.6327293831471326&type=2&cxm=&bt=&sj_djl=undefined&lx=undefined"
 detail_url = "http://12366ww.xm-n-tax.gov.cn:8091/xmgsww/WslyBLH_wslyXq.do?initbh={}"
 
+
 data_info = []
 headers = {
     "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.170 Safari/537.36"
@@ -49,15 +50,17 @@ def get_detail(url):
     except Exception as e:
         print(e)
         get_detail(url)
-        time.sleep(30)
+        time.sleep(random.randint(120,600))
 
 def get_list(page):
     try:
-
         res = requests.post(start_url,data={'page':page}, headers=headers, timeout=5)
-        for item in res.json()['result']['data']:
-            get_detail(detail_url.format(item['initbh']))
-            time.sleep(random.randint(3,10))
+        if res == 200:
+            for item in res.json()['result']['data']:
+                get_detail(detail_url.format(item['initbh']))
+                time.sleep(random.randint(5,20))
+        else:
+            get_list(page)
     except Exception as e:
         print("出现异常：{}".format(e))
         get_list(page)
@@ -66,5 +69,5 @@ def get_list(page):
 if __name__ == '__main__':
     for p in range(1,1139):
         get_list(p)
-        time.sleep(5)
+        time.sleep(random.randint(10,30))
     save("xm-n-tax.csv")
